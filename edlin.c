@@ -1,3 +1,30 @@
+
+/*
+* FILENAME :        edlin.c             
+*
+* DESCRIPTION :
+*       terminal text editor for linux. 
+*
+* PUBLIC FUNCTIONS :
+*       
+*	see 'file.h'
+*       
+*
+* NOTES :
+*       
+*       The program is not yet finished
+*	Needs to finish the function 'InsertNewLine' and check the function 'GetNumLines'
+*	The function 'InsertNewLine' must be changed: including the skill of insert multiple empty line and write them 
+*
+*       
+* 
+* AUTHOR :    Luigi Gesualdo        START DATE :    -
+*
+* CHANGES :
+*
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -26,9 +53,7 @@ int main(void) {
 
     do{
 
-            system("clear");
-
-            printf("Inserire :\n 1 per creare un nuovo file\n 2 per leggere un file esistente\n 3 per uscire\n >> ");
+            printf("Insert :\n 1 for write a new file\n 2 for read an already created file\n 3 exit\n >> ");
         
             scanf ("%d", &var);
         
@@ -40,11 +65,11 @@ int main(void) {
         
             case 1 : 
             {       
-                     printf("Inserire il percorso dove salvare il file ( ricorda di inserire lo / finale ):\n");
+                     printf("Insert the path of the new file ( remember the final / ):\n");
 
                    	scanf("%s", path);
 
-	                 printf("Inserire il nome del file :\n");
+	                 printf("Insert the name of the file :\n");
 
 	                 scanf("%s", nome);
 
@@ -54,7 +79,7 @@ int main(void) {
 
                      system ("clear");
 
-                     printf ("Inserire :\n 1 per uscire\n 2 per tornare indietro\n >> ");
+                     printf ("Insert :\n 1 exit\n 2 back\n >> ");
 
                      scanf ("%d",&var);
 
@@ -65,7 +90,7 @@ int main(void) {
         
                         case 2 :  break;
 
-                        default : printf("hai inserito una scelta non valida \n");
+                        default : printf("invalid selection \n");
 
                       }
 
@@ -77,30 +102,32 @@ int main(void) {
             case 2 :
             {
                     
-                   printf("Inserire il percorso del documento da aprire:\n");
+                   printf("Insert the path of the file:\n");
         
         	           scanf("%s", path);
         
-        	           LoadText(path);  
-
-                   printf ("Inserire :\n 1 per uscire\n 2 per tornare indietro\n >> ");
+                   printf ("Insert :\n 1 print the number of lines\n 2 print all the file\n 3 back\n 4 exit\n the number of the line to print\n >> ");
 
                    scanf ("%d",&var);
 
                    switch (var)
                    {
 
-                     case 1: return 0;
-        
-                     case 2 :  break;
+                        case 1 : printf("the below file:\n%s has %d lines\n",path,GetNumLines(path));
 
-                     default : printf("hai inserito una scelta non valida \n");
+                        case 2 : LoadText(path);
 
-                   } 
+                        case 3 : break;
 
-                   if (var == 2)
-            
-                        break;
+                        case 4 : return 0;
+
+                        default : GetLine(var,path);
+
+                   }
+ 
+                if ( var == 3 )
+    
+                    break;
         
             }
 
@@ -108,7 +135,7 @@ int main(void) {
 
                    return 0;
         
-            default : printf("hai inserito una scelta non valida \n");
+            default : printf("invalid selection \n");
           
             }
         
@@ -118,26 +145,13 @@ int main(void) {
 
 
 
-	//doc.n_lines = GetNumLines(path);
 
     return 1;   
 
-/*
- 	do {
-		printf("che riga vuoi vedere?");
 
-		scanf("%d", &doc.pos);
-
-	} while (doc.pos < 1 && doc.pos > doc.n_lines);
-
-	GetLine(doc.pos, path);
-
-	InsertNewLines(3, path, 3);
-
-*/
 }
 
-void SaveText(char *path) {
+void SaveText(char *path) {		// write line by line from the input terminal, input line = exit save and close the file
 
     
     FILE *fd;
@@ -148,7 +162,7 @@ void SaveText(char *path) {
 
 	if (fd == NULL) {
 
-		perror("errore in apertura");
+		perror("opening error ");
 
 	} else {
 
@@ -177,7 +191,7 @@ void SaveText(char *path) {
 
 }
 
-int GetNumLines(char *path) {
+int GetNumLines(char *path) {        // count the line of the file on the given path 
 
 	FILE *fp;
 
@@ -189,7 +203,7 @@ int GetNumLines(char *path) {
 
 	if (fp == NULL) {
 
-		perror("errore in apertura\n");
+		perror("opening error");
 
 		return -1;
 
@@ -209,7 +223,7 @@ int GetNumLines(char *path) {
 
 }
 
-void LoadText(char *path) {
+void LoadText(char *path) {        // print the file on the given path
 
 	FILE *fd;
 
@@ -217,7 +231,7 @@ void LoadText(char *path) {
 
 	if (fd == NULL) {
 
-		perror("errore in apertura\n");
+		perror("opening error\n");
 
 	} else {
 
@@ -241,7 +255,7 @@ void LoadText(char *path) {
 
 }
 
-int GetLine(int pos, char *path) {
+int GetLine(int pos, char *path) {     // print the single line 'pos' of the file on the given path
 
 	FILE *fp;
 
@@ -251,7 +265,7 @@ int GetLine(int pos, char *path) {
 
 	if (fp == NULL) {
 
-		perror("errore in apertura\n");
+		perror("opening error\n");
 
 	} else {
 
@@ -270,7 +284,7 @@ int GetLine(int pos, char *path) {
 
 }
 
-void InsertNewLines(int linestart, char *path, int times) {
+void InsertNewLines(int linestart, char *path, int times) {   // create a number of empty line in mid on two lines and write them
 	FILE *fd;
 
 	char *exit = "exit";
@@ -284,7 +298,7 @@ void InsertNewLines(int linestart, char *path, int times) {
 	fd = fopen(path, "w");
 
 	if (fd == NULL)
-		perror("errore in apertura\n");
+		perror("opening error\n");
 
 	else {
 		do {
