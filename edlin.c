@@ -113,16 +113,18 @@ int main(void) {
                    switch (var)
                    {
 
-                        case 1 : printf("the below file:\n%s has %d lines\n",path,GetNumLines(path));
-
-                        case 2 : LoadText(path);
-
+                       case 1 : printf("the file %s\nhas %d righe\n",path,GetNumLines(path));
+					
+			if (var == 2)   LoadText(path);
+	
                         case 3 : break;
 
                         case 4 : return 0;
-
-                        default : GetLine(var,path);
-
+						
+			if ( var != 2 )
+					
+				default : GetLine(var,path);
+					
                    }
  
                 if ( var == 3 )
