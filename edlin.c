@@ -43,115 +43,263 @@ struct doc {
 
 } doc;
 
-int main(void) {
+int main(int argc, int * argv []) {
 
 	char path[50];
 
 	char nome[50];
+	
+	char string[5];
+	
+	char ch;
+	
+	char * lines = "lines";
+	
+	char * all = "all";
+	
+	char * back = "back";
+
+	char * exit = "exit";
 
     int var, ex;
 
-    do{
+    if (argc == 1){
 
-            printf("Insert :\n 1 for write a new file\n 2 for read an already created file\n 3 exit\n >> ");
-        
-            scanf ("%d", &var);
-        
-            if ( var == 3 )
-                break;
-        
-            switch (var)
-            {
-        
-            case 1 : 
-            {       
-                     printf("Insert the path of the new file ( remember the final / ):\n");
-
-                   	scanf("%s", path);
-
-	                 printf("Insert the name of the file :\n");
-
-	                 scanf("%s", nome);
-
-	                 strcat(path, nome);
-   
-                     SaveText(path);
-
-                     system ("clear");
-
-                     printf ("Insert :\n 1 exit\n 2 back\n >> ");
-
-                     scanf ("%d",&var);
-
-                     switch (var)
-                      {
-
-                        case 1: return 0;
-        
-                        case 2 :  break;
-
-                        default : printf("invalid selection \n");
-
-                      }
-
-                    if (var == 2)
-            
-                        break; 
-        
-            }
-            case 2 :
-            {
+        system("clear");
                     
-                   printf("Insert the path of the file:\n");
-        
-        	           scanf("%s", path);
-        
-                   printf ("Insert :\n 1 print the number of lines\n 2 print all the file\n 3 back\n 4 exit\n the number of the line to print\n >> ");
+                        do{
+                    
+                                printf("Insert :\n 1 for write a new file\n 2 for read an already created file\n 3 exit\n >> ");
+                            
+                                scanf ("%d", &var);
+                            
+                                if ( var == 3 )
+                                    break;
+                            
+                                switch (var)
+                                {
+                            
+                                case 1 : 
+                                {       
+                                         printf("Insert the path of the new file ( remember the final / ):\n");
+                    
+                                       	scanf("%s", path);
+                    
+                    	                 printf("Insert the name of the file :\n");
+                    
+                    	                 scanf("%s", nome);
+                    
+                    	                 strcat(path, nome);
+                       
+                                         SaveText(path);
+                    
+                                         system ("clear");
+                    
+                                         printf ("Insert :\n 1 exit\n 2 back\n >> ");
+                    
+                                         scanf ("%d",&var);
+                    
+                                         switch (var)
+                                          {
+                    
+                                            case 1: return 0;
+                            
+                                            case 2 :  break;
+                    
+                                            default : printf("invalid selection \n");
+                    
+                                          }
+                    
+                                        if (var == 2)
+                                
+                                            break; 
+                            
+                                }
+                                case 2 :
+                                {
+                                        
+                                       printf("Insert the path of the file:\n");
+                            
+                            	           scanf("%s", path);
+                            
+                                       printf ("Insert :\n 'lines' to print the number of lines\n 'all' to print all the file\n 'back' to back\n 'exit' to exit\n the number of the line to print\n >> ");
+                    
+                                       scanf ("%s",string);
+                    
+                    				   if (strcmp(string,lines) == 0)   printf("the filefile: %s\nhas %d righe\n",path,GetNumLines(path));
+                    					
+                    				   else if (strcmp(string,all) == 0)   LoadText(path);
+                    	
+                    				   else if (strcmp(string,back) == 0)  break;
+                    
+                    				   else if (strcmp(string,exit) == 0)  return 0;
+                    						
+                    				   else 
+                    				   {
+                    					   
+                    					   ch = string[0];
+                    					   
+                    					   var = ch;
+                    					   
+                    					   GetLine(var,path);
+                    					   
+                    				   }
+                    					
+                    			}
+                     
+                                    if ( var == 3 )
+                        
+                                        break;
+                            
+                                
+                    
+                                case 3 :  return 0;
+                            
+                                default : printf("invalid selection \n");
+                              
+                                }
+                            
+                            
+                          }while (1);
+                    	
+      }
+   
+    if (argc > 1){
 
-                   scanf ("%d",&var);
+        system("clear");
 
-                   switch (var)
-                   {
+        strcpy(path,argv[1]);
 
-                       case 1 : printf("the file %s\nhas %d righe\n",path,GetNumLines(path));
-					
-			if (var == 2)   LoadText(path);
-	
-                        case 3 : break;
+        //printf ("%s is the path (of the existing file) saved... type \"2\" to see this\n",path); 
 
-                        case 4 : return 0;
-						
-			if ( var != 2 )
-					
-				default : GetLine(var,path);
-					
-                   }
- 
-                if ( var == 3 )
-    
-                    break;
-        
-            }
+         do{
+                    
+                                //printf("Insert :\n 1 for write a new file\n 2 for read an already created file\n 3 exit\n >> ");
+                            
+                                //scanf ("%d", &var);
+                            
+                                //if ( var == 3 )
+                                  //  break;
+                            
+                                //switch (var)
+                             //   {
+                            
+                               // case 1 : 
+                               // {       
+                                 //      printf("Insert the path of the new file ( remember the final / ):\n");
+                    
+                                   //    	scanf("%s", path);
+                    
+                    	             //    printf("Insert the name of the file :\n");
+                    
+                    	               //  scanf("%s", nome);
+                    
+                    	               //  strcat(path, nome);
+                       
+                                if (isFile(path)){
+                                         SaveText(path);
+                    
+                                         system ("clear");
+                    
+                                         printf ("Insert :\n 1 exit\n 2 back\n >> ");
+                    
+                                         scanf ("%d",&var);
+                    
+                                         switch (var)
+                                          {
+                    
+                                            case 1: return 0;
+                            
+                                            case 2 :  break;
+                    
+                                            default : printf("invalid selection \n");
+                    
+                                          }
+                    
+                                        if (var == 2)
+                                
+                                            break; 
+                            }
+                               // }
+                               // case 2 :
+                               // {
+                                        
+                           //            printf("Insert the path of the file:\n");
+                            
+                            	//           scanf("%s", path);
+                            
 
-            case 3 :
+                            if (!isFile(path)){                
 
-                   return 0;
-        
-            default : printf("invalid selection \n");
-          
-            }
-        
-        
-      }while (1);
-	
+                                       printf ("Insert :\n 'lines' to print the number of lines\n 'all' to print all the file\n 'back' to back\n 'exit' to exit\n the number of the line to print\n >> ");
+                    
+                                       scanf ("%s",string);
+                    
+                    				   if (strcmp(string,lines) == 0)   printf("the filefile: %s\nhas %d righe\n",path,GetNumLines(path));
+                    					
+                    				   else if (strcmp(string,all) == 0)   LoadText(path);
+                    	
+                    				   else if (strcmp(string,back) == 0)  break;
+                    
+                    				   else if (strcmp(string,exit) == 0)  return 0;
+                    						
+                    				   else 
+                    				   {
+                    					   
+                    					   ch = string[0];
+                    					   
+                    					   var = ch;
+                    					   
+                    					   GetLine(var,path);
+                    					   
+                    				   }
+                            }
+                    					
+                    		  // }
+                     
+                     /*               if ( var == 3 )
+                        
+                                        break;
+                            
+                                
+                    
+                                case 3 :  return 0;
+                            
+                                default : printf("invalid selection \n");
+                              
+                                }
+                       */     
+                            
+                          }while (1);
+                    	
 
-
+}
 
 
     return 1;   
 
+}
+
+bool isFile (char *path)
+{
+
+    char ch;
+    int i = 0;    
+
+    do{
+
+        ch = path[i];
+        if (ch == '\0')
+            if (path[i-1] == '/')
+                return false;
+            else
+                return true;
+        i++;
+
+    }while (true);
 
 }
+
 
 void SaveText(char *path) {		// write line by line from the input terminal, input line = exit save and close the file
 
