@@ -196,7 +196,7 @@ int main(int argc, int * argv []) {
                     
                     	               //  strcat(path, nome);
                        
-                                if (isFile(path)){
+                                if (!isFile(path)){
                                          SaveText(path);
                     
                                          system ("clear");
@@ -229,7 +229,7 @@ int main(int argc, int * argv []) {
                             	//           scanf("%s", path);
                             
 
-                            if (!isFile(path)){                
+                            if (isFile(path)){                
 
                                        printf ("Insert :\n 'lines' to print the number of lines\n 'all' to print all the file\n 'back' to back\n 'exit' to exit\n the number of the line to print\n >> ");
                     
@@ -283,20 +283,11 @@ int main(int argc, int * argv []) {
 bool isFile (char *path)
 {
 
-    char ch;
-    int i = 0;    
-
-    do{
-
-        ch = path[i];
-        if (ch == '\0')
-            if (path[i-1] == '/')
-                return false;
-            else
-                return true;
-        i++;
-
-    }while (true);
+    FILE *fd = fopen(path,"r");
+    if (fd==NULL)
+        return false;
+    else
+        return true;
 
 }
 
