@@ -65,6 +65,8 @@ int main(int argc, int * argv []) {
 
     if (argc == 1){
 
+        start :
+
         system("clear");
                     
                         do{
@@ -170,32 +172,8 @@ int main(int argc, int * argv []) {
 
         strcpy(path,argv[1]);
 
-        //printf ("%s is the path (of the existing file) saved... type \"2\" to see this\n",path); 
-
          do{
                     
-                                //printf("Insert :\n 1 for write a new file\n 2 for read an already created file\n 3 exit\n >> ");
-                            
-                                //scanf ("%d", &var);
-                            
-                                //if ( var == 3 )
-                                  //  break;
-                            
-                                //switch (var)
-                             //   {
-                            
-                               // case 1 : 
-                               // {       
-                                 //      printf("Insert the path of the new file ( remember the final / ):\n");
-                    
-                                   //    	scanf("%s", path);
-                    
-                    	             //    printf("Insert the name of the file :\n");
-                    
-                    	               //  scanf("%s", nome);
-                    
-                    	               //  strcat(path, nome);
-                       
                                 if (!isFile(path)){
                                          SaveText(path);
                     
@@ -210,7 +188,7 @@ int main(int argc, int * argv []) {
                     
                                             case 1: return 0;
                             
-                                            case 2 :  break;
+                                            case 2 :  goto start;
                     
                                             default : printf("invalid selection \n");
                     
@@ -220,14 +198,7 @@ int main(int argc, int * argv []) {
                                 
                                             break; 
                             }
-                               // }
-                               // case 2 :
-                               // {
-                                        
-                           //            printf("Insert the path of the file:\n");
-                            
-                            	//           scanf("%s", path);
-                            
+                                                     
 
                             if (isFile(path)){                
 
@@ -239,7 +210,7 @@ int main(int argc, int * argv []) {
                     					
                     				   else if (strcmp(string,all) == 0)   LoadText(path);
                     	
-                    				   else if (strcmp(string,back) == 0)  break;
+                    				   else if (strcmp(string,back) == 0)  goto start;
                     
                     				   else if (strcmp(string,exit) == 0)  return 0;
                     						
@@ -255,21 +226,7 @@ int main(int argc, int * argv []) {
                     				   }
                             }
                     					
-                    		  // }
-                     
-                     /*               if ( var == 3 )
-                        
-                                        break;
-                            
-                                
-                    
-                                case 3 :  return 0;
-                            
-                                default : printf("invalid selection \n");
-                              
-                                }
-                       */     
-                            
+                    		   
                           }while (1);
                     	
 
